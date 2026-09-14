@@ -1,0 +1,11 @@
+using System.ComponentModel.DataAnnotations;
+namespace BolosDoJacquin.API.DTOs;
+public record CategoryInputDto([Required, MaxLength(80)] string Name);
+public record CategoryDto(Guid Id, string Name, string Status);
+public record ProductInputDto([Required, MaxLength(120)] string Name, [Range(0.01, 999999)] decimal Price, [Required] string ImageUrl, Guid CategoryId, [Required, MaxLength(240)] string ShortDescription, [Required, MaxLength(2000)] string LongDescription, bool Available);
+public record ProductListDto(Guid Id, string Name, decimal Price, string ImageUrl, Guid CategoryId, string Category, string ShortDescription, bool Available, double? AverageRating, int ReviewCount);
+public record ProductDetailsDto(Guid Id, string Name, decimal Price, string ImageUrl, CategoryDto Category, string ShortDescription, string LongDescription, bool Available, double? AverageRating, int ReviewCount, IEnumerable<PublicReviewDto> Reviews);
+public record ReviewInputDto([Range(1,5)] int Rating, [MaxLength(600)] string? Comment);
+public record PublicReviewDto(Guid Id, int Rating, string? Comment, string UserName, DateTime CreatedAt, DateTime UpdatedAt);
+public record MyReviewDto(Guid Id, Guid ProductId, string ProductName, int Rating, string? Comment, string Status, DateTime CreatedAt, DateTime UpdatedAt);
+public record HideReviewDto([Required, MaxLength(400)] string Reason);
